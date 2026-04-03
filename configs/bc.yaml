@@ -1,0 +1,48 @@
+data:
+  dataset_type: transfuser
+  data_root: data_raw/transfuser
+  train_towns:
+    - Town01
+    - Town02
+    - Town03
+    - Town04
+  val_towns:
+    - Town05
+    - Town06
+  image_size: [256, 256]
+  seq_len: 1
+  augment: true
+
+model:
+  backbone: resnet34
+  pretrained: true
+  feature_dim: 512
+  speed_embed_dim: 64
+  command_embed_dim: 64
+  num_commands: 4
+  temporal:
+    enabled: false
+  policy:
+    hidden_dims: [512, 256]
+    dropout: 0.1
+    output_dim: 3
+
+training:
+  epochs: 50
+  batch_size: 64
+  num_workers: 4
+  lr: 0.0001
+  weight_decay: 0.0001
+  scheduler: cosine
+  warmup_epochs: 3
+  min_lr: 0.000001
+  grad_clip: 1.0
+  loss:
+    control_weight: 1.0
+    speed_weight: 0.5
+    waypoint_weight: 0.0
+  save_every: 5
+  checkpoint_dir: checkpoints
+
+device: auto
+seed: 108

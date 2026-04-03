@@ -1,0 +1,56 @@
+# Data (too large for git)
+data_raw/
+*.zip
+
+# Model checkpoints (too large for git)
+checkpoints/*.pt
+checkpoints/*.onnx
+cpp/models/*.pt
+cpp/models/*.onnx
+
+# Keep checkpoint visualizations
+!checkpoints/*.png
+!checkpoints/*.gif
+!checkpoints/*.mp4
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.eggs/
+.eggs/
+
+# C++ build artifacts
+cpp/build/
+cpp/CMakeCache.txt
+cpp/CMakeFiles/
+cpp/Makefile
+cpp/cmake_install.cmake
+cpp/models/*.data
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# HuggingFace cache (don't commit downloaded zips)
+.cache/
+
