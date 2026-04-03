@@ -7,8 +7,8 @@ Pipeline:
   3. SHOOT: BEV encoder + segmentation heads
 
 Design choices vs naive LSS:
-  - Uses layer3 features (16×16, 256ch) not layer4 (8×8, 512ch):
-    4× more lift points -> denser BEV coverage
+  - Uses layer3 features (16x16, 256ch) not layer4 (8x8, 512ch):
+    4x more lift points -> denser BEV coverage
   - Depth head has residual skip from raw features so gradient reaches
     the backbone without flowing through BatchNorm bottleneck
   - Separate regression head (geometrically supervised) and distribution
@@ -115,7 +115,7 @@ class LiftSplatSimple(nn.Module):
             nn.Conv2d(64, 1, 1),
         )
 
-        # CARLA default front camera intrinsics (90° FOV, 256×256)
+        # CARLA default front camera intrinsics (90° FOV, 256x256)
         fx = image_w / 2.0
         fy = image_h / 2.0
         cx, cy = image_w / 2.0, image_h / 2.0
@@ -236,7 +236,7 @@ class BEVDrivingModel(nn.Module):
     ResNet-34 backbone -> layer3 spatial features -> Lift-Splat -> BEV map.
 
     Uses layer3 (16x16, 256ch) not layer4+pool (8x8, 512ch):
-    gives 4× more lift points (12,288 vs 3,072) for denser BEV coverage.
+    gives 4x more lift points (12,288 vs 3,072) for denser BEV coverage.
     """
 
     def __init__(
@@ -251,7 +251,7 @@ class BEVDrivingModel(nn.Module):
         from neurodriver.models.backbone import ResNetBackbone
         self.backbone = ResNetBackbone(backbone_name, pretrained, feature_dim=512)
 
-        # layer3 extractor: output is (B, 256, 16, 16) for 256×256 input
+        # layer3 extractor: output is (B, 256, 16, 16) for 256x256 input
         feats = self.backbone.features
         self.layer3_extractor = nn.Sequential(
             feats[0],   # conv1
